@@ -1,47 +1,53 @@
-# AgenciaViagens - Gestão de Pacotes de Viagem
+# ModuloContabil - Sistema de Gestão de Impostos Corporativos
 
-Aplicação em linha de comando (CLI) desenvolvida em **Java** para cadastro, gestão e cálculo de vendas de pacotes de viagens e serviços turísticos.
+Aplicação em linha de comando (CLI) desenvolvida em **Java** para registo, cálculo automatizado de tributos corporativos (**PIS** e **IPI**) e emissão de relatórios de pagamentos empresariais.
 
 ---
 
 ##  Sobre o Projeto
 
-O **AgenciaViagens** é um sistema desenvolvido para simular o funcionamento do módulo de reservas e vendas de uma agência de turismo, aplicando regras de negócio para diferentes tipos de pacotes e serviços com base nos princípios da Programação Orientada a Objetos (POO).
+O **ModuloContabil** foi desenvolvido como atividade prática para simular a gestão fiscal e tributária de uma empresa. O sistema permite o registo dinâmico de múltiplos impostos com regras de cálculo específicas (alíquotas fixas e variáveis) e calcula o total geral devido de forma automatizada.
 
 ---
 
 ##  Funcionalidades
 
-- **Cadastro de Pacotes de Viagem:** Registo e estruturação de opções de viagens nacionais e internacionais.
-- **Cálculo de Custos e Impostos:** Aplicação automatizada de taxas, margens de lucro e conversão de valores.
-- **Gestão de Vendas:** Registo de orçamentos e vendas associadas aos clientes.
-- **Relatórios no Terminal:** Listagem detalhada dos pacotes disponíveis e resumos de vendas.
+- **Registo Dinâmico de Impostos:** Entrada contínua de impostos no terminal até o utilizador digitar `pare`.
+- **Cálculo do PIS:** Aplicação automática da alíquota fixa de **1,65%** sobre a diferença entre o valor total de débito e crédito.
+- **Cálculo do IPI:** Cálculo baseado na soma do valor do produto, frete, seguro e outras despesas, aplicando a alíquota informada.
+- **Relatório de Pagamentos:** Listagem detalhada de cada imposto cadastrado e cálculo do valor total acumulado pela empresa.
 
 ---
 
-  Conceitos de POO Aplicados
+##  Conceitos de POO Aplicados
 
-* **Abstração:** Modelação do domínio de turismo com classes base para representar itens de viagem e serviços.
-* **Herança:** Especialização de classes para tratamento diferenciado de pacotes e taxas específicas.
-* **Polimorfismo:** Sobrescrita de métodos (`@Override`) para cálculo personalizado de custos e preços finais de venda.
-* **Encapsulamento:** Proteção dos dados dos clientes e pacotes utilizando modificadores de acesso e métodos acessores (`getters` e `setters`).
+* **Interfaces (`Imposto`):** Define o contrato padrão (`calcularValor()` e `getDescricao()`) para qualquer tributo do sistema.
+* **Classes Abstratas (`ImpostoAbstrato`):** Centraliza a gestão do nome/descrição dos impostos.
+* **Herança (`PIS` e `IPI`):** Subclasses concretas que estendem `ImpostoAbstrato` e definem as suas próprias bases e alíquotas de cálculo.
+* **Polimorfismo:** A classe `Pagamentos` gere uma lista genérica `List<Imposto>`, permitindo calcular o valor total de qualquer combinação de impostos de forma dinâmica.
+* **Encapsulamento:** Proteção de atributos privados e disponibilização de vista só de leitura para a lista de impostos (`Collections.unmodifiableList`).
 
 ---
 
-  Estrutura do Repositório
+##  Estrutura do Repositório
 
 ```text
-agencia-viagens/
+modulo-contabil/
 ├── src/
-│   └── (Ficheiros .java do projeto)
+│   └── contabil/
+│       ├── Imposto.java
+│       ├── ImpostoAbstrato.java
+│       ├── IPI.java
+│       ├── Main.java
+│       ├── Pagamentos.java
+│       └── PIS.java
 ├── .gitignore
 ├── README.md
 └── print.png
 ```
-
 Como Executar
 Pré-requisitos
-Java Development Kit (JDK) 11 ou superior instalado.
+Java Development Kit (JDK) 8 ou superior instalado.
 
 Demonstração Visual
 
